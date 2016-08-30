@@ -10,6 +10,7 @@ import org.json.JSONArray;
 
 import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.Database;
+import com.couchbase.lite.DatabaseOptions;
 import com.couchbase.lite.Manager;
 import com.couchbase.lite.listener.LiteListener;
 import com.couchbase.lite.listener.LiteServlet;
@@ -114,6 +115,12 @@ public class CBLite extends CordovaPlugin {
 			Manager.enableLogging(Log.TAG_MULTI_STREAM_WRITER, Log.VERBOSE);
 			Manager.enableLogging(Log.TAG_REMOTE_REQUEST, Log.VERBOSE);
 			Manager.enableLogging(Log.TAG_ROUTER, Log.VERBOSE);
+			DatabaseOptions options = new DatabaseOptions();
+			String key = "password123456";
+			options.setCreate(true);
+			options.setStorageType(Manager.FORESTDB_STORAGE);
+			options.setCreate(true);
+			options.setEncryptionKey(key);
 			manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
 			
 		} catch (IOException e) {
