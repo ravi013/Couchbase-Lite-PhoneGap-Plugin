@@ -121,7 +121,7 @@ public class CBLite extends CordovaPlugin {
 			options.setStorageType(Manager.FORESTDB_STORAGE);
 			options.setCreate(true);
 			options.setEncryptionKey(key);
-			manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
+			manager = new Manager(new AndroidContext(context), options);
 			
 		} catch (IOException e) {
 			throw new RuntimeException(e);
