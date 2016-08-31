@@ -172,7 +172,7 @@ public class CBLite extends CordovaPlugin {
             try {
                 db = manager.openDatabase("fhs", options);
                 startReplications();
-                autoCompact();
+                //autoCompact();
             } catch (CouchbaseLiteException e) {
                 e.printStackTrace();
             }
