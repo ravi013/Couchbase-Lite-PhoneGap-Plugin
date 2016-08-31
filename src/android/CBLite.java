@@ -2,6 +2,7 @@ package com.couchbase.cblite.phonegap;
 
 import android.content.Context;
 
+import com.couchbase.lite.*;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
@@ -9,14 +10,10 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 
 import com.couchbase.lite.android.AndroidContext;
-import com.couchbase.lite.Database;
-import com.couchbase.lite.DatabaseOptions;
-import com.couchbase.lite.Manager;
 import com.couchbase.lite.listener.LiteListener;
 import com.couchbase.lite.listener.LiteServlet;
 import com.couchbase.lite.listener.Credentials;
 import com.couchbase.lite.router.URLStreamHandlerFactory;
-import com.couchbase.lite.View;
 import com.couchbase.lite.javascript.JavaScriptReplicationFilterCompiler;
 import com.couchbase.lite.javascript.JavaScriptViewCompiler;
 import com.couchbase.lite.util.Log;
@@ -121,8 +118,14 @@ public class CBLite extends CordovaPlugin {
 			options.setStorageType(Manager.FORESTDB_STORAGE);
 			options.setCreate(true);
 			options.setEncryptionKey(key);
-			manager = new Manager(new AndroidContext(context), options);
-			
+			manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
+			try {
+				manager.openDatabase("fhs", options);
+			} catch (CouchbaseLiteException e) {
+				e.printStackTrace();
+			}
+
+
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
