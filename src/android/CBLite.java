@@ -165,7 +165,7 @@ public class CBLite extends CordovaPlugin {
             DatabaseOptions options = new DatabaseOptions();
             String key = "password123456";
             options.setCreate(true);
-            options.setStorageType(Manager.FORESTDB_STORAGE);
+            //options.setStorageType(Manager.FORESTDB_STORAGE);
             options.setCreate(true);
             options.setEncryptionKey(key);
             manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
