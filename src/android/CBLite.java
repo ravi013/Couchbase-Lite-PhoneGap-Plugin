@@ -141,11 +141,11 @@ public class CBLite extends CordovaPlugin {
 
     private void startReplications() throws CouchbaseLiteException {
         Replication pull = this.db.createPullReplication(this.createSyncURL(false));
-        Replication push = this.db.createPushReplication(this.createSyncURL(false));
+      //  Replication push = this.db.createPushReplication(this.createSyncURL(false));
         pull.setContinuous(true);
-        push.setContinuous(true);
+      //  push.setContinuous(true);
         pull.start();
-        push.start();
+     //   push.start();
     }
 
     protected Manager startCBLite(Context context) {
