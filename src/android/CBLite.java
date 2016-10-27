@@ -128,7 +128,7 @@ public class CBLite extends CordovaPlugin {
 
     private URL createSyncURL(boolean isEncrypted) {
         URL syncURL = null;
-        String host = "http://root:root@13.76.101.187";
+        String host = "http://root:root@92.52.107.87";
         String port = "5984";
         String dbName = "nhs_fsdev";
         try {
