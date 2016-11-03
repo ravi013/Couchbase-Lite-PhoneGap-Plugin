@@ -16,6 +16,7 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -28,6 +29,7 @@ public class CBLite extends CordovaPlugin {
     private int listenPort;
     private Credentials allowedCredentials;
     private Database db;
+    private String remoteSyncUrl="";
 
     /**
      * Constructor.
@@ -74,6 +76,15 @@ public class CBLite extends CordovaPlugin {
                            CallbackContext callback) {
         if (action.equals("getURL")) {
             try {
+                remoteSyncUrl=args.getString(0);
+                startReplications();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (CouchbaseLiteException e) {
+                e.printStackTrace();
+            }
+            try {
 
                 if (initFailed == true) {
                     callback.error("Failed to initialize couchbase lite.  See console logs");
@@ -81,8 +92,8 @@ public class CBLite extends CordovaPlugin {
                 } else {
                     String callbackRespone = String.format(
                             "http://localhost:%d/",
-                           // allowedCredentials.getLogin(),
-                           // allowedCredentials.getPassword(),
+                            // allowedCredentials.getLogin(),
+                            // allowedCredentials.getPassword(),
                             listenPort
                     );
 
@@ -128,11 +139,11 @@ public class CBLite extends CordovaPlugin {
 
     private URL createSyncURL(boolean isEncrypted) {
         URL syncURL = null;
-        String host = "http://root:root@92.52.107.87";
-        String port = "5984";
-        String dbName = "nhs_fsdev";
+//        String host = "http://92.52.107.87";
+//        String port = "5984";
+//        String dbName = "nhs_fsdev";
         try {
-            syncURL = new URL(host + ":" + port + "/" + dbName);
+            syncURL = new URL(remoteSyncUrl);
         } catch (MalformedURLException me) {
             me.printStackTrace();
         }
@@ -141,11 +152,11 @@ public class CBLite extends CordovaPlugin {
 
     private void startReplications() throws CouchbaseLiteException {
         Replication pull = this.db.createPullReplication(this.createSyncURL(false));
-      //  Replication push = this.db.createPushReplication(this.createSyncURL(false));
+        //  Replication push = this.db.createPushReplication(this.createSyncURL(false));
         pull.setContinuous(true);
-      //  push.setContinuous(true);
+        //  push.setContinuous(true);
         pull.start();
-     //   push.start();
+        //   push.start();
     }
 
     protected Manager startCBLite(Context context) {
@@ -165,13 +176,13 @@ public class CBLite extends CordovaPlugin {
             DatabaseOptions options = new DatabaseOptions();
             String key = "password123456";
             options.setCreate(true);
-           // options.setStorageType(Manager.FORESTDB_STORAGE);
+            // options.setStorageType(Manager.FORESTDB_STORAGE);
             options.setCreate(true);
             options.setEncryptionKey(key);
             manager = new Manager(new AndroidContext(context), Manager.DEFAULT_OPTIONS);
             try {
                 db = manager.openDatabase("fhs", options);
-                startReplications();
+
                 //autoCompact();
             } catch (CouchbaseLiteException e) {
                 e.printStackTrace();
