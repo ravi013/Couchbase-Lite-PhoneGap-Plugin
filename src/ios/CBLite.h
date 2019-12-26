@@ -8,6 +8,7 @@
 @property (nonatomic, strong) NSURL *liteURL;
 @property (nonatomic, strong) CBLDatabase *database;
 @property (nonatomic, strong) CBLReplication *pull ;
+@property (nonatomic, strong) NSString *remoteUrl;
 
 - (void)getURL:(CDVInvokedUrlCommand*)urlCommand;
 - (void) startReplication;
