@@ -12,12 +12,14 @@
  @synthesize pull;
 
 - (void)pluginInitialize {
-    [self launchCouchbaseLite];
+   
 }
 
 - (void)getURL:(CDVInvokedUrlCommand*)urlCommand
 {
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self.liteURL absoluteString]];
+    self.remoteUrl = urlCommand.arguments[0];
+     [self launchCouchbaseLite];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:urlCommand.callbackId];
 }
 
@@ -49,14 +51,14 @@
 
 -(void) startReplication
 {
-    NSURL* url = [NSURL URLWithString: @"http://92.52.107.91:5984/nhs_fsinternal"];
+    NSURL* url = [NSURL URLWithString: self.remoteUrl];
    // CBLReplication *push = [database createPushReplication: url];
     CBLReplication *pull = [database createPullReplication: url];
     //push.continuous =
     pull.continuous = YES;
     id<CBLAuthenticator> auth;
-    auth = [CBLAuthenticator basicAuthenticatorWithName: @"root"
-                                               password: @"root"];
+    auth = [CBLAuthenticator basicAuthenticatorWithName: @"fshuser"
+                                               password: @"fshuserqaz"];
     //push.authenticator =
     pull.authenticator = auth;
     self.pull=pull;
