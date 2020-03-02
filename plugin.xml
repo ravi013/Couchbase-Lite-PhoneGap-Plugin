@@ -79,7 +79,6 @@
     <lib-file src="lib/android/okio-1.8.0.jar" />
     <lib-file src="lib/android/rhino-1.7R3.jar" />
     <lib-file src="lib/android/servlet-2-3.jar" />
-    <lib-file src="lib/android/stateless4j-2.4.0.jar"  />
-    <lib-file src="lib/android/webserver-2-3.jar"  />
+    <lib-file src="lib/android/stateless4j-2.4.0.jar"  /> 
   </platform>
 </plugin>
