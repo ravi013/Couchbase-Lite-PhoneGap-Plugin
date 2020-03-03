@@ -66,7 +66,7 @@
     <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
     <source-file src="src/android/CBLite.java" target-dir="src/com/couchbase/cblite/phonegap"/>
     
-     <lib-file src="lib/android/couchbase-lite-java-listener-1.4.4.jar"/>  
+     <lib-file src="lib/android/couchbase-lite-java-listener.jar"/>  
 
     <framework src="com.couchbase.lite:couchbase-lite-java-core:1.4.1" />
     <framework src="com.couchbase.lite:couchbase-lite-java-javascript:1.4.1" />
