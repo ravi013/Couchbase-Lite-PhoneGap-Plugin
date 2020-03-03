@@ -66,9 +66,10 @@
     <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
     <source-file src="src/android/CBLite.java" target-dir="src/com/couchbase/cblite/phonegap"/>
     
+     <lib-file src="lib/android/couchbase-lite-java-listener-1.4.4.jar"/>  
+
     <framework src="com.couchbase.lite:couchbase-lite-java-core:1.4.1" />
     <framework src="com.couchbase.lite:couchbase-lite-java-javascript:1.4.1" />
-    <framework src="com.couchbase.lite:couchbase-lite-java-listener:1.4.1" />
     <framework src="com.couchbase.lite:couchbase-lite-android:1.4.1" />
     <framework src="com.couchbase.lite:couchbase-lite-android-sqlite-custom:1.4.1" />
     <framework src="com.couchbase.lite:couchbase-lite-android-sqlcipher:1.4.1" />
@@ -80,6 +81,7 @@
     <framework src="com.squareup.okhttp3:okhttp:3.3.1" />
     <framework src="com.squareup.okio:okio:1.8.0" />
     <framework src="org.mozilla:rhino:1.7R3" />
+    <framework src="javax.servlet:servlet-api:2.3" />
     <framework src="com.github.oxo42:stateless4j:2.4.0" />
 
   </platform>
