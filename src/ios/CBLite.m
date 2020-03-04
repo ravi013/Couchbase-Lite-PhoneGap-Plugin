@@ -1,6 +1,5 @@
 #import "CBLite.h"
 #import "CouchbaseLite.h"
-#import "CBLListener.h"
 #import "CBLRegisterJSViewCompiler.h"
 
 #import <Cordova/CDV.h>
@@ -9,7 +8,8 @@
 
 @synthesize liteURL;
 @synthesize database;
- @synthesize pull;
+@synthesize pull;
+@synthesize listener;
 
 - (void)pluginInitialize {
    
@@ -33,7 +33,9 @@
     if (!self.database) {
         NSLog(@"Cannot create database instance: %@", error);
     }
-
+    self.listener = [[CBLListener alloc] initWithManager:dbmgr port:55000];
+    [listener start:nil];
+ 
     CBLRegisterJSViewCompiler();
 #if 1
     // Couchbase Lite 1.0's CBLRegisterJSViewCompiler function doesn't register the filter compiler
@@ -42,7 +44,7 @@
         [CBLDatabase setFilterCompiler: [[cblJSFilterCompiler alloc] init]];
     }
 #endif
-    self.liteURL = dbmgr.internalURL;
+    self.liteURL = listener.URL;
     NSLog(@"Couchbase Lite url = %@", self.liteURL);
     [self startReplication];
 }
