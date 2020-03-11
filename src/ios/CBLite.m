@@ -17,10 +17,12 @@
 
 - (void)getURL:(CDVInvokedUrlCommand*)urlCommand
 {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self.liteURL absoluteString]];
+    [self.commandDelegate runInBackground:^{
     self.remoteUrl = urlCommand.arguments[0];
      [self launchCouchbaseLite];
+     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:[self.liteURL absoluteString]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:urlCommand.callbackId];
+   }];
 }
 
 - (void)launchCouchbaseLite
@@ -29,6 +31,7 @@
 
     NSLog(@"Launching Couchbase Lite...");
     CBLManager* dbmgr = [CBLManager sharedInstance];
+     
     self.database = [dbmgr databaseNamed: @"fhs" error: &error];
     if (!self.database) {
         NSLog(@"Cannot create database instance: %@", error);
